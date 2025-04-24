@@ -266,3 +266,5 @@ $RECYCLE.BIN/
 
 #Vite's Cache
 vite.config.js.timestamp*
+
+tsconfig.tsbuildinfo*
