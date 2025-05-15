@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>Browser Phone</title>
+        <meta name="description" content="Browser Phone integration with dynamic configuration">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Expires" content="0"/>
+
+        <link rel="icon" type="image/x-icon" href="/Browser-Phone-master/Phone/favicon.ico">
+
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="https://dtd6jl0d42sve.cloudfront.net/lib/Normalize/normalize-v8.0.1.css"/>
+        <link rel="stylesheet preload prefetch" type="text/css" as="style" href="https://dtd6jl0d42sve.cloudfront.net/lib/fonts/font_roboto/roboto.css"/>
+        <link rel="stylesheet preload prefetch" type="text/css" as="style" href="https://dtd6jl0d42sve.cloudfront.net/lib/fonts/font_awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-ui-1.13.2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://dtd6jl0d42sve.cloudfront.net/lib/Croppie/Croppie-2.6.4/croppie.css"/>
+        <link rel="stylesheet" type="text/css" href="/Browser-Phone-master/Phone/phone.css"/>
+        <!-- Modern UI CSS (loads after original to override styles) -->
+        <link rel="stylesheet" type="text/css" href="/browser-phone-modern.css"/>
+
+        <!-- Dynamic Configuration -->
+        <script type="text/javascript">
+            // Prevent any welcome screen from showing
+            var skipWelcomeScreen = true;
+            var profileUserID = null;
+            var profileName = "";
+            var profileUser = "";
+
+            // Pre-configure phone options
+            var phoneOptions = {
+                loadAlternateLang: true,
+                welcomeScreen: false,
+                autoConnect: true,
+                autoStart: true,
+                userLoggedIn: true,
+                hideSettings: true,
+                skipWelcomeScreen: true
+            };
+
+            // Override event hooks to disable configuration screens
+            document.addEventListener("language_pack_loaded", function(lang){
+                console.log("Language pack loaded, bypassing welcome screen");
+            });
+
+            var web_hook_on_before_init = function(options) {
+                // This runs before the Phone is initialized
+                console.log("Preparing phone with dynamic config...");
+                
+                // Override any saved config with our dynamic config from the parent
+                window.parent.postMessage("requestConfig", "*");
+                
+                // Force these important options to skip welcome screens
+                options.welcomeScreen = false;
+                options.skipWelcomeScreen = true;
+                options.userLoggedIn = true;
+                options.DoRegistration = true;
+            };
+
+            var web_hook_on_init = function() {
+                console.log("Phone initialized");
+                // Hide welcome screen
+                var welcomeScreen = document.getElementById('welcome');
+                if(welcomeScreen) welcomeScreen.style.display = 'none';
+            };
+
+            var web_hook_on_userAgent_created = function(ua) {
+                console.log("UserAgent created, enhancing UI");
+                setTimeout(function() {
+                    // Hide settings and related UI
+                    var elementsToHide = [
+                        '#welcome', '#welcomeScreen', '#setup', '#settings', 
+                        '#SettingsMenu', '#WebRtcSettings', '#AccSettings',
+                        '#AudioVideoSettings', '#AppearanceSettings', 
+                        '#NotificationsSettings', '#btn-configure-account',
+                        '#AccountSettings', '#divCdrReport', '#LanguageItems',
+                        '.welcome-screen-container', '#register-container',
+                        '.configure-account-button', '.settings-item'
+                    ];
+                    
+                    elementsToHide.forEach(function(selector) {
+                        var elements = document.querySelectorAll(selector);
+                        elements.forEach(function(el) {
+                            el.style.display = 'none';
+                        });
+                    });
+                    
+                    // Show the main UI instead
+                    var mainView = document.getElementById("MainView");
+                    if(mainView) mainView.style.display = '';
+                    
+                    // Apply modern styles to UI elements - Runs once when the phone is loaded
+                    if(window.$) {
+                        console.log("Applying modern styles to Browser-Phone");
+                        
+                        // Style buttons
+                        window.$(".dialButton").addClass("modern-button");
+                        window.$(".hangupButton").addClass("modern-button");
+                        window.$(".dialButtons button").addClass("modern-dial-button");
+                        
+                        // Style tabs
+                        window.$(".tab").css("padding", "0.75rem 1.25rem").css("border-radius", "0.375rem 0.375rem 0 0");
+                        window.$(".tab-selected").css("background-color", "#ffffff").css("color", "#4f46e5");
+                        
+                        // Style text fields
+                        window.$("input, select, textarea").css({
+                            "border": "1px solid #e5e7eb",
+                            "border-radius": "0.375rem",
+                            "padding": "0.5rem"
+                        });
+                        
+                        // Style dialpad
+                        window.$("#dialpad").css({
+                            "background-color": "#f9fafb",
+                            "border-radius": "0.375rem",
+                            "padding": "1rem",
+                            "border": "1px solid #e5e7eb",
+                            "margin-top": "1rem"
+                        });
+                        
+                        // Make dialText input more modern
+                        window.$("#dialText").css({
+                            "font-size": "1.25rem",
+                            "font-weight": "500",
+                            "padding": "0.75rem",
+                            "margin-bottom": "0.5rem",
+                            "text-align": "center",
+                            "letter-spacing": "0.05em",
+                            "width": "100%"
+                        });
+                        
+                        // Make the call controls more modern
+                        window.$(".callControls").css({
+                            "display": "flex",
+                            "justify-content": "center",
+                            "gap": "1rem",
+                            "margin": "1rem 0"
+                        });
+                        
+                        // Improve call status
+                        window.$(".callStatus").css({
+                            "font-weight": "600",
+                            "color": "#1f2937"
+                        });
+                    }
+                    
+                    // Show dialpad
+                    if(window.ShowBuddies) window.ShowBuddies();
+                }, 300);
+            };
+
+            // Override settings functions
+            var ShowSettings = function() { console.log("Settings disabled"); return false; };
+            var ShowAccountSettings = function() { console.log("Account settings disabled"); return false; };
+            var ShowAudioVideoSettings = function() { console.log("Audio/Video settings disabled"); return false; };
+            var ShowAppearanceSettings = function() { console.log("Appearance settings disabled"); return false; };
+            var ShowNotificationsSettings = function() { console.log("Notification settings disabled"); return false; };
+            var ConfigureAccount = function() { console.log("Account configuration disabled"); return false; };
+            var ToggleHeadset = function() { console.log("Headset toggle disabled"); return false; };
+            var ToggleAudioSources = function() { console.log("Audio sources disabled"); return false; };
+            var ToggleVideoSources = function() { console.log("Video sources disabled"); return false; };
+            var ToggleSettings = function() { console.log("Settings toggle disabled"); return false; };
+            var SettingsMenu = function() { console.log("Settings menu disabled"); return false; };
+            var ShowWelcomeScreen = function() { console.log("Welcome screen disabled"); return false; };
+            var HideWelcomeScreen = function() { /* Do nothing, already hidden */ };
+            
+            // Function to create modern status indicators
+            function createStatusIndicator(type, message) {
+                // Remove any existing status indicators
+                var existingIndicators = document.querySelectorAll('.status-indicator');
+                existingIndicators.forEach(function(indicator) {
+                    if (indicator && indicator.parentNode) {
+                        indicator.parentNode.removeChild(indicator);
+                    }
+                });
+                
+                // Create new status indicator
+                var indicator = document.createElement('div');
+                indicator.className = 'status-indicator status-' + type;
+                indicator.textContent = message;
+                document.body.appendChild(indicator);
+                
+                // Update the UI colors based on status
+                if(window.$) {
+                    if (type === 'connected') {
+                        window.$("#regStatus").css("color", "#10b981");
+                    } else if (type === 'warning') {
+                        window.$("#regStatus").css("color", "#f59e0b");
+                        window.$("#regStatus").text("Connection failed - Using offline mode");
+                    } else {
+                        window.$("#regStatus").css("color", "#ef4444");
+                        window.$("#regStatus").text("Connection error");
+                    }
+                }
+            }
+            
+            // Handle registration events with modern UI updates
+            var web_hook_on_register = function(ua) {
+                window.parent.postMessage({ event: 'sipRegisterConnected' }, "*");
+                console.log("Browser-Phone registered successfully");
+                
+                // Create connected status indicator
+                createStatusIndicator('connected', 'Connected');
+                
+                // Apply modern styles to buttons
+                setTimeout(function() {
+                    if(window.$) {
+                        // Apply modern styles to dial buttons for better UI
+                        window.$(".dialButton").addClass("modern-button");
+                        window.$(".hangupButton").addClass("modern-button");
+                        window.$(".dialButtons button").addClass("modern-dial-button");
+                        
+                        // Hide the WebRTC failed message if showing
+                        window.$("#WebRtcFailed").hide();
+                    }
+                }, 500);
+            };
+            
+            var web_hook_on_registrationFailed = function(e) {
+                window.parent.postMessage({ event: 'sipRegisterDisconnected' }, "*");
+                console.log("Browser-Phone registration failed");
+                
+                // Create warning status indicator
+                createStatusIndicator('warning', 'Offline Mode');
+                
+                // Continue showing the phone UI even on failure
+                setTimeout(function() {
+                    if(window.ShowBuddies) window.ShowBuddies();
+                    
+                    // Apply modern styles anyway
+                    if(window.$) {
+                        window.$(".dialButton").addClass("modern-button");
+                        window.$(".hangupButton").addClass("modern-button");
+                        window.$(".dialButtons button").addClass("modern-dial-button");
+                        
+                        // Hide any error UIs that would prevent showing the phone
+                        window.$("#WebRtcFailed").hide();
+                    }
+                }, 300);
+            };
+            
+            var web_hook_on_transportError = function(t, ua) {
+                window.parent.postMessage({ event: 'sipRegisterDisconnected', error: t }, "*");
+                console.log("Browser-Phone transport error");
+                
+                // Create error status indicator
+                createStatusIndicator('error', 'Connection Error');
+                
+                // Continue showing the phone UI even on failure 
+                setTimeout(function() {
+                    if(window.ShowBuddies) window.ShowBuddies();
+                    
+                    // Apply modern styles anyway
+                    if(window.$) {
+                        window.$(".dialButton").addClass("modern-button");
+                        window.$(".hangupButton").addClass("modern-button");
+                        window.$(".dialButtons button").addClass("modern-dial-button");
+                        
+                        // Hide any error UIs that would prevent showing the phone
+                        window.$("#WebRtcFailed").hide();
+                    }
+                }, 300);
+            };
+
+            // Listen for configuration from the parent React component
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'phoneConfig') {
+                    var config = event.data.config;
+                    console.log("Received dynamic configuration", config);
+                    
+                    // Create websocket URL
+                    var websocketProtocol = config.transport === 'wss' ? 'wss://' : 'ws://';
+                    var websocketUrl = websocketProtocol + config.serverAddress + ':' + config.webSocketPort + config.serverPath;
+                    
+                    // Apply configuration to phoneOptions
+                    phoneOptions.webSocketUrl = websocketUrl;
+                    phoneOptions.serverAddress = config.serverAddress;
+                    phoneOptions.WebSocketPort = config.webSocketPort;
+                    phoneOptions.ServerPath = config.serverPath;
+                    phoneOptions.SipUsername = config.sipUsername;
+                    phoneOptions.SipPassword = config.sipPassword;
+                    phoneOptions.SipDomain = config.sipDomain;
+                    phoneOptions.regExpires = config.regExpires;
+                    phoneOptions.Transport = config.transport;
+                    phoneOptions.DoRegistration = config.doRegistration;
+                    phoneOptions.profileUser = config.sipUsername;
+                    
+                    // Auto-initialize phone after receiving config
+                    if (window.phone) {
+                        console.log("Re-initializing with updated config");
+                        // Already initialized, update config
+                        window.phone.config = phoneOptions;
+                    }
+                }
+            });
+        </script>
+
+        <!-- Add custom CSS to hide settings UI and enhance UI -->
+        <style>
+            /* Hide all settings-related UI */
+            #settings, 
+            #btnSwitchAccounts, 
+            #WebRtcSettings,
+            #SettingsMenu,
+            .menu-item-settings,
+            #Register, 
+            #offlineCheck,
+            #menu-configuration-container,
+            #menu-settings-container,
+            #AccSettings,
+            #AudioVideoSettings, 
+            #AppearanceSettings,
+            #NotificationsSettings,
+            #btn-configure-account,
+            #AccountSettings,
+            #divCdrReport,
+            #LanguageItems,
+            .configure-account-button,
+            .settings-item,
+            #welcome, 
+            #welcomeScreen,
+            .welcome-screen-container,
+            #register-container,
+            #security {
+                /* display: none !important; */
+                /* visibility: hidden !important;
+                opacity: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                position: absolute !important;
+                pointer-events: none !important;
+                z-index: -9999 !important; */
+            }
+            
+            /* Custom modern enhancements */
+            body {
+                background-color: #f9fafb;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            }
+            
+            /* Add modern container */
+            #Phone {
+                max-width: 1024px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            
+            /* Add custom status indicators */
+            .status-indicator {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-weight: 500;
+                color: white;
+                display: flex;
+                align-items: center;
+                z-index: 1000;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            .status-indicator::before {
+                content: "";
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+            
+            .status-connected {
+                background-color: #10b981;
+            }
+            
+            .status-connected::before {
+                background-color: white;
+            }
+            
+            .status-error {
+                background-color: #ef4444;
+            }
+            
+            .status-warning {
+                background-color: #f59e0b;
+            }
+        </style>
+        
+        <!-- Add Font Awesome icons - newer version -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        <!-- Loading Animation -->
+        <div class=loading>
+            <span class="fa fa-circle-o-notch fa-spin"></span>
+        </div>
+
+        <!-- The Phone -->
+        <div id=Phone></div>
+    </body>
+
+    <!-- Loadable Scripts -->
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-ui-1.13.2.min.js"></script>
+    <script type="text/javascript" src="/Browser-Phone-master/Phone/phone.js"></script>
+
+    <!-- Deferred Scripts -->
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery.md5-min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/Chart/Chart.bundle-2.7.2.min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/SipJS/sip-0.20.0.min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/FabricJS/fabric-2.4.6.min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/Moment/moment-with-locales-2.24.0.min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/Croppie/Croppie-2.6.4/croppie.min.js" defer="true"></script>
+    <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/XMPP/strophe-1.4.1.umd.min.js" defer="true"></script>
+</html>

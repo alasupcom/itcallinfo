@@ -2,7 +2,25 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", "./src/*.css"],
+  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}", ".client/src/*.css", "./client/public/phone-ui.html",],
+  safelist: [
+    'btn', 'container', 'row', 'col', 'form-control', 'text-success', 'text-danger',
+    // {
+    //   pattern: /^btn-/,
+    // },
+    // {
+    //   pattern: /^text-/,
+    // },
+    // {
+    //   pattern: /^bg-/,
+    // },
+    // {
+    //   pattern: /^form-/,
+    // },
+    // {
+    //   pattern: /^col-/,
+    // },
+  ],
   theme: {
     extend: {
       borderRadius: {
