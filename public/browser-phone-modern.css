@@ -1,0 +1,511 @@
+/* Modern UI styling for Browser Phone */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-color: #ffffff;
+    --bg-light: #f9fafb;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius: 0.375rem;
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  /* General styling */
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+    background-color: var(--bg-light);
+    line-height: 1.5;
+  }
+  
+  /* Main container */
+  #Phone {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  
+  /* Header and footer */
+  .UiText {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  /* Buttons */
+  button, .button {
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: all 0.2s;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  button:hover, .button:hover {
+    background-color: var(--primary-hover);
+    box-shadow: var(--shadow);
+  }
+  
+  /* Specific buttons */
+  .hangupButton, .rejectButton, .hangup {
+    background-color: var(--danger-color) !important;
+  }
+  
+  .answerButton, .callButton, .dialButton, .dial {
+    background-color: var(--success-color) !important;
+  }
+  
+  /* Input fields */
+  input, select, textarea {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    background-color: var(--bg-light);
+    transition: border-color 0.2s;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+  
+  /* Dialpad */
+  .dialpadBox {
+    padding: 1rem;
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    margin: 1rem auto;
+  }
+  
+  .dialButtons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .dialButtons button {
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.25rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+  }
+  
+  .dialButtons button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  /* Status indicators */
+  .dotOnline {
+    background-color: var(--success-color) !important;
+    border-radius: 50%;
+  }
+  
+  .dotOffline {
+    background-color: var(--danger-color) !important;
+    border-radius: 50%;
+  }
+  
+  /* Calls */
+  .callStatus {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  
+  /* Buddies list */
+  .buddy-list {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  
+  .buddy {
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem;
+    transition: background-color 0.2s;
+  }
+  
+  .buddy:hover {
+    background-color: var(--bg-light);
+  }
+  
+  .buddyIcon {
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+  }
+  
+  /* Call interface */
+  .callControls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .callControls button {
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Main view */
+  #MainView {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+    min-height: 400px;
+  }
+  
+  /* Tabs styling */
+  .tab {
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
+    border-bottom: none;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--text-light);
+    transition: all 0.2s;
+  }
+  
+  .tab.tab-selected {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    border-color: var(--border-color);
+    border-bottom: none;
+  }
+  
+  .tab:hover {
+    color: var(--primary-color);
+  }
+  
+  /* Notifications */
+  .notification {
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background-color: var(--bg-light);
+    border-left: 4px solid var(--primary-color);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Call history */
+  .callHistoryRecord {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+  }
+  
+  .callHistoryRecord:hover {
+    background-color: var(--bg-light);
+  }
+  
+  /* Status bar */
+  #regStatus {
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+  }
+  
+  /* Modern styles for icons */
+  .fa {
+    width: 1em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Menu items */
+  #mainMenu {
+    background-color: var(--bg-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+  }
+  
+  #mainMenu li {
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+  }
+  
+  #mainMenu li:hover {
+    background-color: var(--bg-light);
+    color: var(--primary-color);
+  }
+  
+  /* Loading spinner */
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--bg-light);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+  
+  .loading span {
+    font-size: 3rem;
+    color: var(--primary-color);
+  }
+  
+  /* Status indicator for call */
+  .call-status-indicator {
+    background-color: var(--success-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+    display: inline-block;
+  }
+  
+  /* Active call UI */
+  .activeCall {
+    background-color: var(--bg-light);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+    position: relative;
+  }
+  
+  .activeCall h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  /* Call timer */
+  .callTimer {
+    background-color: rgba(0,0,0,0.05);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-family: monospace;
+    font-weight: 500;
+    margin: 0.5rem 0;
+    display: inline-block;
+  }
+  
+  /* Call quality meter */
+  .callQuality {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0.5rem 0;
+  }
+  
+  .callQualityMeter {
+    display: flex;
+    gap: 2px;
+  }
+  
+  .callQualityBar {
+    width: 4px;
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 1px;
+  }
+  
+  .callQualityBar.active {
+    background-color: var(--success-color);
+  }
+  
+  /* Dialog windows */
+  .ui-dialog {
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    padding: 0;
+  }
+  
+  .ui-dialog-titlebar {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+  }
+  
+  .ui-dialog-content {
+    padding: 1rem;
+    background-color: var(--bg-color);
+  }
+  
+  .ui-dialog-buttonpane {
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+  
+  /* Remove any remaining visible welcome or settings screens */
+  #welcome, 
+  #welcomeScreen, 
+  #setup, 
+  #settings, 
+  #wizard,
+  #config, 
+  #registration, 
+  .ui-settings, 
+  #security,
+  .welcome-screen-container {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Status indicator in top-right corner */
+  #status-connected, 
+  #status-failed, 
+  #status-error {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    font-weight: 500;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  
+  #status-connected div {
+    background-color: var(--success-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  #status-connected div::before {
+    content: "●";
+    font-size: 0.75rem;
+  }
+  
+  #status-failed div {
+    background-color: var(--warning-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  #status-error div {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Phone number input field */
+  input#dialText {
+    font-size: 1.25rem;
+    font-weight: 500;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+  
+  /* Ensure the dial and hangup buttons are prominent */
+  .dialButton, 
+  .hangupButton,
+  .modern-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Modern dial button styles */
+  .modern-dial-button {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    font-size: 1.25rem !important;
+    border-radius: 9999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s !important;
+    border: 1px solid var(--border-color) !important;
+    background-color: white !important;
+    color: var(--text-color) !important;
+    margin: 0.25rem !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .modern-dial-button:hover {
+    transform: scale(1.05) !important;
+    background-color: var(--primary-color) !important;
+    color: white !important;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .dialButtons button {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1rem;
+    }
+    
+    #dialButtons::after {
+      content: "";
+      flex: auto;
+    }
+  }

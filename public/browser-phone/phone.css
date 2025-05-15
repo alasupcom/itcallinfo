@@ -1,0 +1,130 @@
+/* Basic styling for the Browser-Phone */
+.phone-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.phone-header {
+  padding: 15px;
+  background-color: #2c3e50;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phone-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.status-indicator {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-indicator.registered {
+  background-color: #27ae60;
+}
+
+.status-indicator.unregistered {
+  background-color: #e74c3c;
+}
+
+.phone-body {
+  padding: 15px;
+}
+
+.dialer-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.keypad {
+  margin-bottom: 15px;
+}
+
+.keypad-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.keypad-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  border: none;
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.keypad-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.call-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.call-btn, .hangup-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.call-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.call-btn:hover {
+  background-color: #27ae60;
+}
+
+.hangup-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.hangup-btn:hover {
+  background-color: #c0392b;
+}
+
+.hangup-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.call-status {
+  text-align: center;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  font-weight: 500;
+}
