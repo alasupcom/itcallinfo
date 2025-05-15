@@ -77,17 +77,17 @@ export default function BrowserPhoneStyles({ iframeRef, setError, setLoading }: 
           //   transition: background-color 0.2s !important;
           // }
           
-          .dialButton:hover, .hangupButton:hover {
-            background-color: #4338ca !important;
-          }
+          // .dialButton:hover, .hangupButton:hover {
+          //   background-color: #4338ca !important;
+          // }
           
-          .hangupButton {
-            background-color: #ef4444 !important;
-          }
+          // .hangupButton {
+          //   background-color: #ef4444 !important;
+          // }
           
-          .hangupButton:hover {
-            background-color: #dc2626 !important;
-          }
+          // .hangupButton:hover {
+          //   background-color: #dc2626 !important;
+          // }
           
           /* Style dialog text */
           // #dialText {
@@ -159,21 +159,21 @@ export default function BrowserPhoneStyles({ iframeRef, setError, setLoading }: 
           //   margin-right: 8px;
           // }
           
-          .status-connected {
-            background-color: #10b981;
-          }
+          // .status-connected {
+          //   background-color: #10b981;
+          // }
           
-          .status-connected::before {
-            background-color: white;
-          }
+          // .status-connected::before {
+          //   background-color: white;
+          // }
           
-          .status-error {
-            background-color: #ef4444;
-          }
+          // .status-error {
+          //   background-color: #ef4444;
+          // }
           
-          .status-warning {
-            background-color: #f59e0b;
-          }
+          // .status-warning {
+          //   background-color: #f59e0b;
+          // }
           
           /* Remove loading spinner after 2 seconds */
           .loading {
@@ -202,15 +202,15 @@ export default function BrowserPhoneStyles({ iframeRef, setError, setLoading }: 
           // }
           
           /* Rounded corners */
-          .tab {
-            border-radius: 4px 4px 0 0 !important;
-          }
+          // .tab {
+          //   border-radius: 4px 4px 0 0 !important;
+          // }
           
-          /* Cards and panels */
-          .card, .panel, .UiSideField {
-            border-radius: 4px !important;
-            transition: all 0.2s ease !important;
-          }
+          // /* Cards and panels */
+          // .card, .panel, .UiSideField {
+          //   border-radius: 4px !important;
+          //   transition: all 0.2s ease !important;
+          // }
           
           @keyframes fadeOut {
             to {

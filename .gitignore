@@ -260,9 +260,9 @@ $RECYCLE.BIN/
 .settings/
 
 # actions
-.github
-!.github/workflows/
-!.github/workflows/deploy.yml
+# .github
+# !.github/workflows/
+# !.github/workflows/deploy.yml
 
 #Vite's Cache
 vite.config.js.timestamp*
