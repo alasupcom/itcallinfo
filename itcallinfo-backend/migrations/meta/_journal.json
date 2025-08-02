@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1750701550955,
+      "tag": "0000_colorful_the_renegades",
+      "breakpoints": true
+    }
+  ]
+}
